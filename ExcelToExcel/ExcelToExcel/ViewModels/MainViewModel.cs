@@ -21,7 +21,7 @@ namespace ExcelToExcel.ViewModels
 
                 /// Commentaire pédagogique
                 /// Sert à envoyer un signal au UI pour valider si
-                /// la commande peut être exécuté
+                /// la commande peut être exécutée
                 ValidateExcelCommand.RaiseCanExecuteChanged();
                 LoadContentCommand.RaiseCanExecuteChanged();
             }
@@ -101,7 +101,7 @@ namespace ExcelToExcel.ViewModels
         /// Cette fonction permet d'indiquer si l'on peut exécuter ou non la commande
         /// On l'utilise principalement pour activer ou désactiver des fonctionnalités
         /// dans le UI
-        /// Cette fonction n'est appelé que lorsque la méthode RaiseExecuteChanged() est
+        /// Cette fonction n'est appelée que lorsque la méthode RaiseExecuteChanged() est
         /// appelée
         /// </summary>
         /// <param name="obj"></param>
