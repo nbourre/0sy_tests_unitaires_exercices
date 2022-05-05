@@ -21,12 +21,46 @@ L'application doit être en mesure de charger un fichier Excel.
 - Être de format Excel. Sinon afficher le message d'erreur "***Mauvais format de fichier!***" dans la propriété Message.
 
 ## Ce qui doit être fait
-Vous devez faire les tests pour :
-- la méthode **ValidateExcel()**.
-- Le constructueur **EspeceXL()**
-- Les différentes méthodes de la classe **EspeceXL**
+
+### Créer des jeux de données à tester
+**MemberData**
+- Une liste de fichiers qui existe valide ou non;
+- Une liste de fichiers Excel;
+- Une liste de fichier qui n'existent pas;
+- Une liste de fichier de mauvais type.
+
+**ClassData**
+- Une liste de fichiers Excel de mauvais format;
+- Une liste de ficheirs Excel qui répond aux requis;
+
+### Tester **`LoadContentCommand()`**
+- [Theory] Si le fichier existe `CanExecute` devrait retourner vrai;
+- [Theory] Si le fichier n'existe pas `CanExecute` devrait retourner faux;
+- [Theory] Si le fichier n'existe pas, le message devrait être `"Fichier inexistant!"`;
+- [Theory] Si le fichier est dans un mauvais format, le message `"Mauvais format de fichier!"` devrait être affiché;
+- [Theory] **ClassData** : Si le fichier Excel est dans un mauvais format, le message `"Mauvais format de fichier!"` devrait être affiché;
+- [Theory] **ClassData** :Si le fichier Excel est valide, `FileContent` ne devrait pas être vide.
+
+### Tester **`ValidateExcelCommand()`** 
+- [Theory] Si le fichier Excel n'a pas les bonnes entêtes, le message devrait être `"Contenu du fichier Excel non reconnu"`
+
+### Tester la classe **`EspeceXL()`**
+- [Theory]  **ClassData** : La méthode `GetCSV` devrait retourner une chaîne non vide si le contenu du fichier est valide.
+- [Theory]  **ClassData** : La méthode `GetCSV` devrait déclencher une erreur `ArgumentException` si le contenu du fichier n'est pas valide.
+- [Fact] `LoadFile` devrait déclencher une erreur `ArgumentException` s'il n'y a pas de fichier.
+- [Fact] **InlineData** : `LoadFile` devrait déclencher une erreur `ArgumentException` si le fichier n'est pas valide.
+
 
 # Annexe
+## Rappel - DelegateCommande
+- Pour exécuter une commande, il faut appeler la méthode `Execute(T param)`
+  - Exemple : `MaCommande.Execute(string.empty)`
+- Pour vérifier si la commande peut être exécutée, il faut appeler la méthode `CanExecute(T param)` qui retournera un booléen.
+  - Exemple : `var result = MaCommande.CanExecute(string.empty)`
+
+
+
+## Code fourni
 Dans la classe pour tester le `MainViewModel`, ajoutez le constructeur , les membres et la méthode ci-contre :
 
 ```cs
@@ -56,3 +90,20 @@ private void resetData()
 }
 ```
 
+Dans la classe pour tester le `EspeceXL`, ajoutez le constructeur et les membres ci-contre :
+
+```cs
+/// Dossier contenant les fichiers
+string excelFilesPath;
+
+public MainViewModelTests()
+{
+    Uri codeBaseUrl = new Uri(Assembly.GetExecutingAssembly().Location);
+    var codeBasePath = Uri.UnescapeDataString(codeBaseUrl.AbsolutePath);
+    var dirPath = Path.GetDirectoryName(codeBasePath);
+
+    /// Va chercher le dossier Data à partir du dossier de compilation
+    /// ce code s'adapte selon l'emplacement du projet.
+    excelFilesPath = Path.Combine(dirPath, @"..\..\..\..\..\data");
+}
+```

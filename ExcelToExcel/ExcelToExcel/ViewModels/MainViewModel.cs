@@ -34,9 +34,7 @@ namespace ExcelToExcel.ViewModels
                 outputFilename = value;
                 OnPropertyChanged();
             }
-        }
-
-        
+        }        
 
         /// <summary>
         /// Utiliser cette propriété pour passer un message à l'utilisateur
@@ -77,6 +75,7 @@ namespace ExcelToExcel.ViewModels
             ValidateExcelCommand = new DelegateCommand<string>(ValidateExcel, CanExecuteValidateExcelCommand);
             LoadContentCommand = new DelegateCommand<string>(LoadContent, CanExecuteLoadContentCommand);
             TestCommand = new DelegateCommand<string>(TestAction);
+            
         }
 
         private bool CanExecuteLoadContentCommand(string obj)
