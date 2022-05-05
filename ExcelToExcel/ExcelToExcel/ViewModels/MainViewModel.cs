@@ -2,6 +2,7 @@
 using ExcelToExcel.Commands;
 using ExcelToExcel.Models;
 using System;
+using System.IO;
 
 namespace ExcelToExcel.ViewModels
 {
@@ -81,7 +82,7 @@ namespace ExcelToExcel.ViewModels
 
         private bool CanExecuteLoadContentCommand(string obj)
         {
-            return !string.IsNullOrEmpty(InputFilename);
+            return File.Exists(InputFilename);
         }
 
         private void LoadContent(string obj)
