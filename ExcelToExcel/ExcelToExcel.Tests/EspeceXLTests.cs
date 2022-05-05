@@ -27,7 +27,7 @@ namespace ExcelToExcel.Tests
         }
 
         [Theory]
-        [MemberData(nameof(BadExcelFilesTestData))]
+        [ClassData(typeof(BadExcelDataGenerator))]
         public void GetCSV_WrongFileContent_Should_Fail(string fn)
         {
             /// Arrange
@@ -46,7 +46,7 @@ namespace ExcelToExcel.Tests
         }
 
         [Theory]
-        [MemberData(nameof(GoodExcelFileTestData))]
+        [ClassData(typeof(GoodExcelDataGenerator))]
         public void GetCSV_GoodFileContent_Should_Pass(string fn)
         {
             /// Arrange
@@ -99,19 +99,5 @@ namespace ExcelToExcel.Tests
             Assert.Throws<ArgumentException>(act);
         }
 
-
-        public static IEnumerable<object[]> BadExcelFilesTestData = new List<object[]>
-        {
-            new object[] {"Contenu_nom de peuplement.xlsx"},
-            new object[] {"faune_aquatique_v21.xlsx"},
-            new object[] {"faune_aquatique_v21_segment.xlsx"},
-            new object[] {"Tableau_Export_v1.xlsx"},
-        };
-
-        public static IEnumerable<object[]> GoodExcelFileTestData = new List<object[]>
-        {
-            new object[] {"liste_especes.xlsx"},
-            new object[] {"liste_especes_multifeuilles.xlsx"},
-        };
     }
 }
