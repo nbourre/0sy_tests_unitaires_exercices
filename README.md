@@ -107,3 +107,9 @@ public MainViewModelTests()
     excelFilesPath = Path.Combine(dirPath, @"..\..\..\..\..\data");
 }
 ```
+
+## Autre code d'intérêt
+Pour combiner des chaînes de caractères pour construire un chemin
+```cs
+Path.Combine(chemin_dossier, nom_fichier);
+```
