@@ -31,7 +31,7 @@ L'application doit être en mesure de charger un fichier Excel.
 
 **ClassData**
 - Une liste de fichiers Excel de mauvais format;
-- Une liste de ficheirs Excel qui répond aux requis;
+- Une liste de fichiers Excel qui répond aux requis;
 
 ### Tester **`LoadContentCommand()`**
 - [Theory] Si le fichier existe `CanExecute` devrait retourner vrai;
@@ -48,7 +48,7 @@ L'application doit être en mesure de charger un fichier Excel.
 - [Theory]  **ClassData** : La méthode `GetCSV` devrait retourner une chaîne non vide si le contenu du fichier est valide.
 - [Theory]  **ClassData** : La méthode `GetCSV` devrait déclencher une erreur `ArgumentException` si le contenu du fichier n'est pas valide.
 - [Fact] `LoadFile` devrait déclencher une erreur `ArgumentException` s'il n'y a pas de fichier.
-- [Fact] **InlineData** : `LoadFile` devrait déclencher une erreur `ArgumentException` si le fichier n'est pas valide.
+- [Theory] **InlineData** : `LoadFile` devrait déclencher une erreur `ArgumentException` si le fichier n'est pas valide.
 
 
 # Annexe
@@ -112,4 +112,14 @@ public MainViewModelTests()
 Pour combiner des chaînes de caractères pour construire un chemin
 ```cs
 Path.Combine(chemin_dossier, nom_fichier);
+```
+
+Pour extraire l'extension d'un fichier. Attention! Cela inclut le point.
+
+```cs
+var ext = Path.GetExtension(nom_fichier);
+if (ext != ".pdf") {
+  // Message de mauvais type de fichier
+  return;
+}
 ```
